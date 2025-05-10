@@ -1,13 +1,16 @@
 using UnityEngine;
+using System;
 
-public class BubbleScript : MonoBehaviour
+public class Bubble : MonoBehaviour
 {
     public float bounceForce = 10f;
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
          Debug.Log("Bubble is born");
+         Destroy(gameObject, 2f);
     }
 
 
@@ -45,6 +48,16 @@ public class BubbleScript : MonoBehaviour
         if (playerScript != null)
         {
             playerScript.TriggerBounce(); // Optional cooldown/etc
+        }
+
+        Destroy(gameObject);
+    }
+    public Action onDestroyed; //Other scripts can attatch behaviour to this method call.
+
+    void OnDestroy()
+    {
+        if (onDestroyed != null) {  //Avoid nullpointerexception
+            onDestroyed.Invoke(); //Essentially "Emit signal"
         }
     }
 }
