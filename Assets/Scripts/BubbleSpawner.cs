@@ -6,7 +6,7 @@ public class BubbleSpawner : MonoBehaviour
     [Header("Settings")]
     public GameObject bubblePrefab;
     public int maxBubbles = 5;
-    public float noSpawnRadius = 0.1f;
+    public float noSpawnRadius = 0.2f;
     public LayerMask playerLayerMask;
 
     [Header("References")]
@@ -28,7 +28,7 @@ public class BubbleSpawner : MonoBehaviour
             mousePosition.z = 0f;
 
             if (spawnedBubbles.Count < maxBubbles &&
-                Physics2D.OverlapPoint(mousePosition, playerLayerMask) == null)
+                Physics2D.OverlapCircle(mousePosition, noSpawnRadius, playerLayerMask) == null)
                     {
                         SpawnBubble(mousePosition);
                     }

@@ -8,14 +8,13 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
 
+
+    private float moveX;
     private void Update()
     {
         // Get horizontal input and move (Only for testing purposes!)
-        float moveX = Input.GetAxisRaw("Horizontal");
-        if (Mathf.Abs(moveX) > 0.01f) // only apply when player gives input
-        {
-            rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
-        }
+        moveX = Input.GetAxisRaw("Horizontal");
+
 
         // Flip sprite based on direction & input
         if (rb.linearVelocity.x < -turn_threshold)
@@ -33,14 +32,25 @@ public class PlayerScript : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
+
+        //Reset if out of bounds
+        if (transform.position.y < -10) {
+            transform.position = new Vector3(transform.position.x, 3f, transform.position.z);
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
-    [SerializeField] float xDamp = 0.98f;
+    [SerializeField] float xDamp = 0.98f; //Descelleration
     [SerializeField] float bounceCooldown = 0.2f;
     private float bounceTimer = 0f;
 
     void FixedUpdate()
     {
+        if (Mathf.Abs(moveX) > 0.01f) // only apply when player gives input
+        {
+            rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
+        }
+
         if (bounceTimer > 0f)
         {
             bounceTimer -= Time.fixedDeltaTime;

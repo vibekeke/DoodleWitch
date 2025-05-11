@@ -3,25 +3,23 @@ using System;
 
 public class Bubble : MonoBehaviour
 {
-    public float bounceForce = 10f;
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-         Debug.Log("Bubble is born");
-         Destroy(gameObject, 2f);
-    }
-
+    [Header("Bounce Settings")]
+    [SerializeField] private float bounceForce = 10f;
 
     [Tooltip("0 = pure reflection, 1 = fully biased direction")]
     [Range(0f, 1f)]
     [SerializeField] private float squishFactor = 0.35f;
 
-    [Tooltip("Forward-upward nudge to soften bounce direction")]
-    [SerializeField] private Vector2 bounceBias = new Vector2(0.5f, 0.5f);
+    [Tooltip("How much to favor sideways motion vs. upward motion (0 = pure up, 1 = pure horizontal)")]
+    [Range(0f, 1f)]
+    [SerializeField] private float horizontalBias = 0.5f;
 
-    private void OnCollisionStay2D(Collision2D collision)
+    void Start()
+    {
+        Destroy(gameObject, 2f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
 
@@ -34,13 +32,21 @@ public class Bubble : MonoBehaviour
         // Raw bounce direction: from bubble center to contact point
         Vector2 rawDirection = (contact.point - (Vector2)transform.position).normalized;
 
-        // Blend in a little forward-upward squish
-        Vector2 biasedDirection = Vector2.Lerp(rawDirection, bounceBias.normalized, squishFactor).normalized;
+        // Determine side of contact
+        float xSign = Mathf.Sign(rawDirection.x);
+
+        // Build dynamic bias based on horizontalBias slider
+        float xBias = Mathf.Lerp(0f, 1f, horizontalBias); // 0 = vertical, 1 = horizontal
+        float yBias = Mathf.Lerp(1f, 0f, horizontalBias); // inverse
+
+        Vector2 dynamicBias = new Vector2(xSign * xBias, yBias).normalized;
+
+        // Blend raw direction with bias
+        Vector2 finalDirection = Vector2.Lerp(rawDirection, dynamicBias, squishFactor).normalized;
 
         // Apply bounce
-        rb.linearVelocity = biasedDirection * bounceForce;
+        rb.linearVelocity += finalDirection * bounceForce;
 
-        Debug.Log($"SquishBounce → Raw: {rawDirection}, Final: {biasedDirection}");
 
 
         // Optional: tell the player script (for camera, drag, VFX etc.)
@@ -50,7 +56,6 @@ public class Bubble : MonoBehaviour
             playerScript.TriggerBounce(); // Optional cooldown/etc
         }
 
-        Destroy(gameObject);
     }
     public Action onDestroyed; //Other scripts can attatch behaviour to this method call.
 
