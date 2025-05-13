@@ -41,17 +41,44 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: 1Sky
+  - name: Sky3
+    uniqueID: 1437850107
+    locked: 0
+  - name: Sky2
+    uniqueID: 1282556999
+    locked: 0
+  - name: Sky1
     uniqueID: 2918433949
     locked: 0
-  - name: 2Cloud
+  - name: Clouds2
+    uniqueID: 2085444263
+    locked: 0
+  - name: Clouds
     uniqueID: 1546046443
     locked: 0
-  - name: 3Hills
-    uniqueID: 3276827103
+  - name: Mountains
+    uniqueID: 3345971293
     locked: 0
-  - name: 4SeaLevel
+  - name: Hills3
+    uniqueID: 2866375293
+    locked: 0
+  - name: Hills2
+    uniqueID: 3932578775
+    locked: 0
+  - name: Hills1
+    uniqueID: 740141807
+    locked: 0
+  - name: Trees2
+    uniqueID: 2406567291
+    locked: 0
+  - name: Trees1
+    uniqueID: 4026298807
+    locked: 0
+  - name: Grass
     uniqueID: 1921292559
+    locked: 0
+  - name: Background elems
+    uniqueID: 1872137725
     locked: 0
   - name: Player
     uniqueID: 3185095105

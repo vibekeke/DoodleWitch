@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 8f;
+    public float jumpForce = 30f;
     public float turn_threshold = 4.5f;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
