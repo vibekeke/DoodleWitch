@@ -14,7 +14,7 @@ public class BackgroundController : MonoBehaviour
         length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         //Moved 
         float distance_x = cam.transform.position.x * parallaxEffect_x;

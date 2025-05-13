@@ -6,7 +6,7 @@ public class BubbleSpawner : MonoBehaviour
     [Header("Settings")]
     public GameObject bubblePrefab;
     public int maxBubbles = 5;
-    public float noSpawnRadius = 0.2f;
+    public float noSpawnRadius = 0.1f;
     public LayerMask playerLayerMask;
 
     [Header("References")]

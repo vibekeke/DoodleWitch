@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be50bf4c98e5abc438d14c128caa10ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceForce: 10
+  bounceForce: 15
   squishFactor: 1
   horizontalBias: 0.315
