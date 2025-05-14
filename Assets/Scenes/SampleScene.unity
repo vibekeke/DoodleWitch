@@ -1565,12 +1565,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8187c1da5c72d3418c44baad5afa255, type: 3}
+  m_Script: {fileID: 11500000, guid: 03c1724a3cf882743bed915df9432096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2016465138}
-  offset: {x: 0, y: 0, z: -10}
-  smoothSpeed: 5
+  player: {fileID: 2016465138}
+  y_offset: 2
+  x_offset: 4
+  baseScrollSpeed: 2
+  catchUpSpeed: 5
+  leashDistance: 0
+  verticalFollowSpeed: 2
 --- !u!1 &532728681
 GameObject:
   m_ObjectHideFlags: 0
