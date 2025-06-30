@@ -7,21 +7,22 @@ public class LeashedCameraFollow : MonoBehaviour
 
     [Header("Scroll Settings")]
     public float y_offset = 2f;
+    public float x_offset = 0f;
     public float baseScrollSpeed = 2f;          // constant forward scroll
     public float catchUpSpeed = 5f;             // how fast camera reacts when player gets too far
-    public float leashDistance = 2f;            // how far ahead player can get before camera follows
+    public float leashDistance = 0f;            // how far ahead player can get before camera follows
     public float verticalFollowSpeed = 2f;      // optional: smooth follow for Y movement
 
     private float targetX;
 
     void Start()
     {
-        targetX = transform.position.x;
+        targetX = transform.position.x + x_offset;
     }
 
     void LateUpdate()
     {
-        float playerX = player.position.x;
+        float playerX = player.position.x + x_offset;
 
         // Move forward at base scroll speed
         targetX += baseScrollSpeed * Time.deltaTime;
@@ -30,7 +31,7 @@ public class LeashedCameraFollow : MonoBehaviour
         float maxAllowedX = targetX + leashDistance;
         if (playerX > maxAllowedX)
         {
-            targetX = Mathf.Lerp(targetX, playerX - leashDistance, Time.deltaTime * catchUpSpeed);
+            targetX = playerX - leashDistance;
         }
 
         // Smooth vertical follow (optional)
