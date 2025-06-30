@@ -4,6 +4,8 @@ public class PlayerScript : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 30f;
+    public float dashForceX = 10f;
+    public float dashForceY = 15f; //Affected by gravity, so needs to be stronger
     public float turn_threshold = 4.5f;
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
@@ -30,11 +32,12 @@ public class PlayerScript : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            Jump();
         }
 
         //Reset if out of bounds
-        if (transform.position.y < -10) {
+        if (transform.position.y < -10)
+        {
             transform.position = new Vector3(transform.position.x, 3f, transform.position.z);
             rb.linearVelocity = Vector2.zero;
         }
@@ -65,6 +68,17 @@ public class PlayerScript : MonoBehaviour
     public void TriggerBounce()
     {
         bounceTimer = bounceCooldown;
+    }
+
+    public void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    }
+
+    
+    public void DashForward()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x + dashForceX, rb.linearVelocity.y + dashForceY);
     }
 
 }

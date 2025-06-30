@@ -31,7 +31,7 @@ public class LeashedCameraFollow : MonoBehaviour
         float maxAllowedX = targetX + leashDistance;
         if (playerX > maxAllowedX)
         {
-            targetX = playerX - leashDistance;
+            targetX = playerX - leashDistance; //Smoother: targetX = Mathf.Lerp(targetX, playerX - leashDistance, Time.deltaTime * catchUpSpeed);
         }
 
         // Smooth vertical follow (optional)
